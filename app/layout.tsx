@@ -2,6 +2,10 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
+import { LenisScroll } from '@/components/lenis-scroll'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
@@ -10,19 +14,12 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Intelligence - Premium Institutional Research & Investment Platform',
+  description: 'Institutional-grade research, investment intelligence, geopolitical analysis, market insights, and AI-powered decision support built for the world\'s smartest investors. Trusted by 200+ institutions.',
+  keywords: ['institutional research', 'investment intelligence', 'portfolio management', 'geopolitical analysis', 'AI analytics', 'market research'],
   generator: 'v0.app',
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
       {
         url: '/icon.svg',
         type: 'image/svg+xml',
@@ -30,14 +27,27 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
+  openGraph: {
+    title: 'Intelligence - Premium Institutional Research Platform',
+    description: 'Institutional-grade research, investment intelligence, geopolitical analysis, market insights, and AI-powered decision support.',
+    type: 'website',
+    url: 'https://intelligence.example.com',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Intelligence Platform',
+    description: 'Premium institutional research and investment intelligence.',
+  },
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
+  colorScheme: 'dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: dark)', color: '#050505' },
   ],
+  width: 'device-width',
+  initialScale: 1,
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -46,10 +56,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark bg-background`}>
+      <body className="font-sans antialiased bg-background text-foreground">
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+          <LenisScroll>
+            <Navbar />
+            <main className="min-h-screen pt-16">{children}</main>
+            <Footer />
+          </LenisScroll>
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )
