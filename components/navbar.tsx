@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Search, Menu, X } from 'lucide-react'
+import { SearchModal } from './search-modal'
 
 
 const navItems = [
@@ -39,6 +40,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,7 @@ export function Navbar() {
   }, [])
 
   return (
+    <>
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
@@ -120,7 +123,10 @@ export function Navbar() {
 
           {/* Right Side Actions */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="p-2 rounded-lg hover:bg-muted transition-colors text-foreground/70 hover:text-foreground">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-lg hover:bg-muted transition-colors text-foreground/70 hover:text-foreground"
+            >
               <Search size={20} />
             </button>
             <Link
@@ -188,5 +194,7 @@ export function Navbar() {
         )}
       </div>
     </motion.nav>
+    {isSearchOpen && <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />}
+    </>
   )
 }
