@@ -1,137 +1,79 @@
 import Link from 'next/link'
-import { Mail, Globe, Send } from 'lucide-react'
+import { ArrowRight, Mail, Send, Sparkles } from 'lucide-react'
 
 export function Footer() {
   return (
-    <footer className="bg-muted border-t border-border mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
-          {/* Brand */}
-          <div className="col-span-1">
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center font-bold text-foreground">
-                IN
+    <footer className="relative mt-24 border-t border-white/10 bg-slate-950/80">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(95,140,255,0.16),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.16),transparent_24%)]" />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+          <div>
+            <Link href="/" className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/80 via-secondary/80 to-accent/70 text-white shadow-[0_0_30px_rgba(95,140,255,0.25)]">
+                <Sparkles size={18} />
               </div>
-              <span className="font-bold text-lg">Intelligence</span>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">SNQR</p>
+                <p className="text-base font-semibold text-white">Intelligence</p>
+              </div>
             </Link>
-            <p className="text-sm text-foreground/60 leading-relaxed">
-              Premium institutional research and investment intelligence for the world's smartest investors.
+            <p className="mt-6 max-w-sm text-sm leading-7 text-white/60">
+              Premium intelligence and research infrastructure for institutions that need clarity, speed, and conviction.
             </p>
-          </div>
-
-          {/* Solutions */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Solutions</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Research & Articles
+            <div className="mt-6 flex gap-3">
+              {['Research', 'Products', 'Contact'].map((item) => (
+                <Link
+                  key={item}
+                  href={item === 'Contact' ? '/contact' : item === 'Products' ? '/products' : '/research'}
+                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 transition-all duration-300 hover:border-primary/30 hover:text-white"
+                >
+                  {item}
                 </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Investment Advisory
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Risk Analysis
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Decision Intelligence
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Products</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/products/dashboard" className="text-foreground/60 hover:text-primary transition-colors">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/algo-trading" className="text-foreground/60 hover:text-primary transition-colors">
-                  Algo Trading
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/geopolitical" className="text-foreground/60 hover:text-primary transition-colors">
-                  Geopolitical Research
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/ai-assistant" className="text-foreground/60 hover:text-primary transition-colors">
-                  AI Assistant
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Company</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/about" className="text-foreground/60 hover:text-primary transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-foreground/60 hover:text-primary transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/60 hover:text-primary transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social & Newsletter */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Connect</h3>
-            <div className="flex space-x-3 mb-6">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-card border border-border hover:border-primary hover:bg-muted flex items-center justify-center text-foreground/60 hover:text-primary transition-all"
-              >
-                <Globe size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-card border border-border hover:border-primary hover:bg-muted flex items-center justify-center text-foreground/60 hover:text-primary transition-all"
-              >
-                <Send size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-card border border-border hover:border-primary hover:bg-muted flex items-center justify-center text-foreground/60 hover:text-primary transition-all"
-              >
-                <Mail size={18} />
-              </a>
+              ))}
             </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/50">Solutions</h3>
+            <ul className="mt-5 space-y-3 text-sm text-white/60">
+              {['Research & Articles', 'Investment Advisory', 'Risk Analysis', 'Decision Intelligence'].map((item) => (
+                <li key={item}><Link href="/solutions" className="transition-colors hover:text-white">{item}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/50">Explore</h3>
+            <ul className="mt-5 space-y-3 text-sm text-white/60">
+              {['Products', 'Books', 'Audio Library', 'Insights'].map((item) => (
+                <li key={item}><Link href={item === 'Products' ? '/products' : item === 'Books' ? '/books' : item === 'Audio Library' ? '/audio' : '/insights'} className="transition-colors hover:text-white">{item}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/50">Connect</h3>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {[Mail, Send].map((Icon, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/70 transition-all duration-300 hover:border-primary/30 hover:text-white"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
+            <Link href="/contact" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-white">
+              Start a conversation
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between text-sm text-foreground/60">
-            <p>&copy; 2024 Intelligence Research Platform. All rights reserved.</p>
-            <p>Designed for institutional investors, policy makers, and research-driven organizations.</p>
-          </div>
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-white/45 md:flex-row md:items-center md:justify-between">
+          <p>© 2026 SNQR Intelligence. All rights reserved.</p>
+          <p>Built for institutions, strategists, and research teams.</p>
         </div>
       </div>
     </footer>

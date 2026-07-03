@@ -1,168 +1,73 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
+import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react'
+import { PageShell } from '@/components/page-shell'
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
     setFormData({ name: '', email: '', company: '', message: '' })
   }
 
   return (
-    <main className="bg-background">
-      {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 border-b border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-foreground/60 leading-relaxed">
-            Have questions? Our team is here to help. Contact us for demos, partnerships, or general inquiries.
-          </p>
-        </div>
-      </section>
+    <main>
+      <PageShell eyebrow="Contact" title="Let’s build your next edge" description="Speak with our team about research access, product demos, and strategic partnerships." />
 
-      {/* Content */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Contact Information</h2>
-
-            <div className="space-y-8">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
-                    <Mail className="text-primary" size={24} />
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-primary">Reach us</p>
+            <h2 className="text-3xl font-semibold tracking-tight text-white">Available for demos, partnerships, and strategic briefings.</h2>
+            <div className="mt-8 space-y-6">
+              {[
+                { title: 'Email', value: 'contact@intelligence.com', detail: 'sales@intelligence.com', icon: Mail },
+                { title: 'Phone', value: '+1 (212) 555-0123', detail: 'Mon–Fri, 9:00–18:00 ET', icon: Phone },
+                { title: 'Office', value: 'Intelligence Research', detail: 'New York, NY 10001 · United States', icon: MapPin },
+              ].map((item) => {
+                const Icon = item.icon
+                return (
+                  <div key={item.title} className="flex gap-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon size={20} /></div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                      <p className="mt-1 text-white/70">{item.value}</p>
+                      <p className="text-sm text-white/50">{item.detail}</p>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
-                  <p className="text-foreground/60">contact@intelligence.com</p>
-                  <p className="text-foreground/60">sales@intelligence.com</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
-                    <Phone className="text-primary" size={24} />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
-                  <p className="text-foreground/60">+1 (212) 555-0123</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
-                    <MapPin className="text-primary" size={24} />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Office</h3>
-                  <p className="text-foreground/60">
-                    Intelligence Research
-                    <br />
-                    New York, NY 10001
-                    <br />
-                    United States
-                  </p>
-                </div>
-              </div>
+                )
+              })}
             </div>
-
-            {/* Response Time */}
-            <div className="mt-12 p-6 rounded-lg bg-card border border-border">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Response Time</h3>
-              <p className="text-foreground/60">
-                We typically respond to inquiries within 2 business hours during EST business hours.
-              </p>
+            <div className="mt-8 rounded-2xl border border-primary/20 bg-primary/10 p-5 text-sm leading-7 text-white/70">
+              Response times are typically under two business hours during East Coast operating hours.
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-3xl font-bold text-foreground mb-8">Send us a Message</h2>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="rounded-[32px] border border-white/10 bg-slate-950/60 p-8 backdrop-blur-xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-white">Send a message</h2>
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              {[
+                { label: 'Name', name: 'name', type: 'text', placeholder: 'Your name', required: true },
+                { label: 'Email', name: 'email', type: 'email', placeholder: 'you@company.com', required: true },
+                { label: 'Company', name: 'company', type: 'text', placeholder: 'Your company', required: false },
+              ].map((field) => (
+                <div key={field.name}>
+                  <label className="mb-2 block text-sm font-semibold text-white/80">{field.label}{field.required ? ' *' : ''}</label>
+                  <input type={field.type} required={field.required} value={formData[field.name as keyof typeof formData]} onChange={(event) => setFormData({ ...formData, [field.name]: event.target.value })} className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 outline-none transition-all focus:border-primary/50" placeholder={field.placeholder} />
+                </div>
+              ))}
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Your name"
-                />
+                <label className="mb-2 block text-sm font-semibold text-white/80">Message *</label>
+                <textarea required value={formData.message} onChange={(event) => setFormData({ ...formData, message: event.target.value })} className="min-h-36 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 outline-none transition-all focus:border-primary/50" placeholder="Tell us about your inquiry..." />
               </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary transition-colors"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Your company"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
-                  Message *
-                </label>
-                <textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary transition-colors min-h-32"
-                  placeholder="Tell us about your inquiry..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/40 transition-all group"
-              >
-                Send Message
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02]">
+                Send message
+                <ArrowRight size={18} />
               </button>
             </form>
-
-            <p className="text-sm text-foreground/60 mt-4">
-              By sending us a message, you agree to our privacy policy.
-            </p>
+            <p className="mt-4 text-sm text-white/50">By sending this form, you agree to our privacy policy.</p>
           </div>
         </div>
       </section>

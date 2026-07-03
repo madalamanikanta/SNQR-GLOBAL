@@ -1,116 +1,46 @@
 import Link from 'next/link'
-import { BookOpen, Download, Headphones, ArrowRight } from 'lucide-react'
+import { ArrowRight, BookOpen, Download, Headphones } from 'lucide-react'
+import { PageShell } from '@/components/page-shell'
 
 const books = [
-  {
-    id: 1,
-    title: 'The New Investment Paradigm',
-    author: 'Dr. James Peterson',
-    category: 'Investment Strategy',
-    description: 'Comprehensive guide to modern portfolio construction in the age of AI and algorithmic trading.',
-    year: 2024,
-    icon: BookOpen,
-  },
-  {
-    id: 2,
-    title: 'Geopolitics and Markets',
-    author: 'Sarah Mitchell',
-    category: 'Geopolitics',
-    description: 'Understanding how global events shape market movements and investment opportunities.',
-    year: 2024,
-    icon: BookOpen,
-  },
-  {
-    id: 3,
-    title: 'AI for Finance Professionals',
-    author: 'Prof. David Chen',
-    category: 'Technology',
-    description: 'Practical guide to implementing AI and machine learning in financial operations.',
-    year: 2023,
-    icon: BookOpen,
-  },
-  {
-    id: 4,
-    title: 'Risk Management in Uncertain Times',
-    author: 'Michael Johnson',
-    category: 'Risk',
-    description: 'Advanced techniques for managing portfolio risk in volatile markets.',
-    year: 2023,
-    icon: BookOpen,
-  },
+  { id: 1, title: 'The new investment paradigm', author: 'Dr. James Peterson', category: 'Investment strategy', description: 'A practical guide to modern portfolio construction in the age of AI and algorithmic trading.', year: 2024 },
+  { id: 2, title: 'Geopolitics and markets', author: 'Sarah Mitchell', category: 'Geopolitics', description: 'Understanding how global events shape market movements and investment opportunities.', year: 2024 },
+  { id: 3, title: 'AI for finance professionals', author: 'Prof. David Chen', category: 'Technology', description: 'Practical guidance to implementing AI and machine learning in financial operations.', year: 2023 },
+  { id: 4, title: 'Risk management in uncertain times', author: 'Michael Johnson', category: 'Risk', description: 'Advanced techniques for managing portfolio risk in volatile markets.', year: 2023 },
 ]
 
 export default function BooksPage() {
   return (
-    <main className="bg-background">
-      {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 border-b border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Research Books
-          </h1>
-          <p className="text-xl text-foreground/60 leading-relaxed">
-            Premium research publications and educational resources from leading experts in finance and investment.
-          </p>
-        </div>
-      </section>
+    <main>
+      <PageShell eyebrow="Books" title="Research books for deeper strategic thinking" description="Premium publications and educational resources from leading experts in finance, policy, and technology." />
 
-      {/* Books Library */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {books.map((book) => (
-              <div
-                key={book.id}
-                className="group relative p-8 rounded-xl bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all"
-              >
-                {/* Icon */}
-                <div className="mb-6 inline-flex p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <BookOpen size={28} className="text-primary" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-2xl font-bold text-foreground mb-2">
-                  {book.title}
-                </h3>
-                <p className="text-primary font-semibold mb-3">by {book.author}</p>
-                <p className="text-sm text-primary/80 mb-4">{book.category} • {book.year}</p>
-                <p className="text-foreground/60 mb-6 leading-relaxed">
-                  {book.description}
-                </p>
-
-                {/* Actions */}
-                <div className="flex items-center gap-3 pt-4 border-t border-border">
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all">
-                    <BookOpen size={16} />
-                    Read
+      <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
+          {books.map((book) => (
+            <div key={book.id} className="rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-primary/10">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><BookOpen size={22} /></div>
+              <h3 className="text-2xl font-semibold text-white">{book.title}</h3>
+              <p className="mt-2 text-base font-semibold text-primary">by {book.author}</p>
+              <p className="mt-3 text-sm uppercase tracking-[0.24em] text-white/45">{book.category} • {book.year}</p>
+              <p className="mt-4 text-base leading-7 text-white/65">{book.description}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {[['Read', BookOpen], ['Download', Download], ['Audio', Headphones]].map(([label, Icon]) => (
+                  <button key={label} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/40 px-4 py-2 text-sm font-medium text-white/70 transition-all duration-300 hover:border-primary/30 hover:text-white">
+                    {Icon ? <Icon size={16} /> : null}
+                    {label}
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all">
-                    <Download size={16} />
-                    Download
-                  </button>
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all">
-                    <Headphones size={16} />
-                    Audio
-                  </button>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          {/* CTA */}
-          <div className="mt-16 text-center">
-            <p className="text-foreground/60 mb-8">
-              All books are included with premium Intelligence membership.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:shadow-lg transition-all group"
-            >
-              Get Access
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
+        <div className="mx-auto mt-16 max-w-3xl rounded-[32px] border border-white/10 bg-gradient-to-br from-primary/10 via-white/5 to-transparent p-10 text-center backdrop-blur-xl">
+          <p className="text-lg text-white/70">All books are included with premium Intelligence membership.</p>
+          <Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03]">
+            Get access
+            <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
     </main>

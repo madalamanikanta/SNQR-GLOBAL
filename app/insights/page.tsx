@@ -1,106 +1,40 @@
-import Link from 'next/link'
-import { TrendingUp, AlertCircle, Globe, ArrowRight } from 'lucide-react'
+import { AlertCircle, ArrowRight, Globe, TrendingUp } from 'lucide-react'
+import { PageShell } from '@/components/page-shell'
 
 const insights = [
-  {
-    id: 1,
-    title: 'Market Update: Fed Signals Continued Rate Stability',
-    category: 'Market Analysis',
-    time: '2 hours ago',
-    icon: TrendingUp,
-    highlight: true,
-  },
-  {
-    id: 2,
-    title: 'Risk Alert: Tech Sector Volatility Increases',
-    category: 'Risk Alert',
-    time: '4 hours ago',
-    icon: AlertCircle,
-    highlight: false,
-  },
-  {
-    id: 3,
-    title: 'Geopolitical: New Trade Policy Developments',
-    category: 'Geopolitics',
-    time: '6 hours ago',
-    icon: Globe,
-    highlight: false,
-  },
-  {
-    id: 4,
-    title: 'Sector Watch: Energy Markets Rally on Supply Concerns',
-    category: 'Sector Analysis',
-    time: '1 day ago',
-    icon: TrendingUp,
-    highlight: false,
-  },
+  { id: 1, title: 'Market update: Fed signals continued rate stability', category: 'Market analysis', time: '2 hours ago', icon: TrendingUp, highlight: true },
+  { id: 2, title: 'Risk alert: Tech sector volatility increases', category: 'Risk alert', time: '4 hours ago', icon: AlertCircle, highlight: false },
+  { id: 3, title: 'Geopolitical: New trade policy developments', category: 'Geopolitics', time: '6 hours ago', icon: Globe, highlight: false },
+  { id: 4, title: 'Sector watch: Energy markets rally on supply concerns', category: 'Sector analysis', time: '1 day ago', icon: TrendingUp, highlight: false },
 ]
 
 export default function InsightsPage() {
   return (
-    <main className="bg-background">
-      {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 border-b border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Latest Insights
-          </h1>
-          <p className="text-xl text-foreground/60 leading-relaxed">
-            Daily market updates, risk alerts, and investment insights from our research team.
-          </p>
-        </div>
-      </section>
+    <main>
+      <PageShell eyebrow="Insights" title="The latest intelligence in motion" description="Daily market updates, risk alerts, and strategic observations from our research team." />
 
-      {/* Insights Feed */}
-      <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-6">
+      <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl space-y-4">
           {insights.map((insight) => {
             const Icon = insight.icon
             return (
-              <div
-                key={insight.id}
-                className={`group relative p-6 rounded-lg border transition-all cursor-pointer ${
-                  insight.highlight
-                    ? 'bg-card border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/20'
-                    : 'bg-card border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10'
-                }`}
-              >
+              <div key={insight.id} className={`group rounded-[24px] border p-6 backdrop-blur-xl transition-all duration-300 ${insight.highlight ? 'border-primary/30 bg-primary/10' : 'border-white/10 bg-white/5 hover:border-primary/30 hover:bg-primary/10'}`}>
                 <div className="flex items-start gap-4">
-                  <div className={`flex-shrink-0 p-3 rounded-lg ${
-                    insight.highlight
-                      ? 'bg-primary/20'
-                      : 'bg-card border border-border group-hover:border-primary/50'
-                  }`}>
-                    <Icon size={24} className={insight.highlight ? 'text-primary' : 'text-primary'} />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/50 text-primary">
+                    <Icon size={20} />
                   </div>
-                  <div className="flex-grow min-w-0">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                      {insight.category}
-                    </p>
-                    <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {insight.title}
-                    </h3>
-                    <p className="text-sm text-foreground/60">
-                      {insight.time}
-                    </p>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">{insight.category}</p>
+                    <h3 className="mt-2 text-xl font-semibold text-white">{insight.title}</h3>
+                    <p className="mt-2 text-sm text-white/55">{insight.time}</p>
                   </div>
-                  <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="inline-flex items-center gap-1 text-primary font-medium">
-                      View
-                      <ArrowRight size={16} />
-                    </span>
+                  <div className="hidden text-primary transition-all duration-300 group-hover:translate-x-1 sm:block">
+                    <ArrowRight size={18} />
                   </div>
                 </div>
               </div>
             )
           })}
-        </div>
-
-        {/* Load More */}
-        <div className="text-center mt-12">
-          <button className="px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:border-primary hover:bg-muted transition-all">
-            Load More Insights
-          </button>
         </div>
       </section>
     </main>

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Search, Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, Menu, X, Sparkles } from 'lucide-react'
 import { SearchModal } from './search-modal'
 
 
@@ -54,145 +54,127 @@ export function Navbar() {
   return (
     <>
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50'
+          ? 'border-b border-white/10 bg-background/75 backdrop-blur-2xl shadow-[0_0_80px_rgba(8,15,30,0.6)]'
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center font-bold text-foreground group-hover:shadow-lg group-hover:shadow-primary/50 transition-all">
-              IN
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/80 via-secondary/80 to-accent/70 text-sm font-semibold text-white shadow-[0_0_30px_rgba(95,140,255,0.25)] transition-all duration-300 group-hover:scale-105">
+            <Sparkles size={18} />
+          </div>
+          <div className="hidden sm:block">
+            <p className="text-sm font-semibold tracking-[0.24em] text-white/70 uppercase">SNQR</p>
+            <p className="text-base font-semibold text-white">Intelligence</p>
+          </div>
+        </Link>
+
+        <div className="hidden lg:flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-2 backdrop-blur-xl">
+          {navItems.map((item) => (
+            <div key={item.label} className="relative group">
+              <Link
+                href={item.href}
+                className="relative rounded-full px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-300 hover:text-white"
+              >
+                {item.label}
+                <span className="absolute bottom-1 left-4 right-4 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-to-r from-primary to-secondary transition-transform duration-300 group-hover:scale-x-100" />
+              </Link>
+
+              {item.label === 'Solutions' && (
+                <div className="invisible absolute left-0 top-full mt-3 w-56 rounded-2xl border border-white/10 bg-slate-950/95 p-3 opacity-0 shadow-[0_30px_80px_rgba(0,0,0,0.4)] backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
+                  {solutionsMenu.map((subitem) => (
+                    <Link
+                      key={subitem.label}
+                      href={subitem.href}
+                      className="block rounded-xl px-3 py-2 text-sm font-medium text-white/65 transition-colors hover:bg-white/5 hover:text-white"
+                    >
+                      {subitem.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {item.label === 'Products' && (
+                <div className="invisible absolute left-0 top-full mt-3 w-56 rounded-2xl border border-white/10 bg-slate-950/95 p-3 opacity-0 shadow-[0_30px_80px_rgba(0,0,0,0.4)] backdrop-blur-2xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
+                  {productsMenu.map((subitem) => (
+                    <Link
+                      key={subitem.label}
+                      href={subitem.href}
+                      className="block rounded-xl px-3 py-2 text-sm font-medium text-white/65 transition-colors hover:bg-white/5 hover:text-white"
+                    >
+                      {subitem.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-            <span className="font-bold text-lg hidden sm:inline">Intelligence</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <div key={item.label} className="relative group">
-                <Link
-                  href={item.href}
-                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300" />
-                </Link>
-
-                {/* Mega Menus */}
-                {item.label === 'Solutions' && (
-                  <div className="absolute left-0 mt-0 w-56 bg-card border border-border rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-2">
-                    <div className="p-4 space-y-3">
-                      {solutionsMenu.map((subitem) => (
-                        <Link
-                          key={subitem.label}
-                          href={subitem.href}
-                          className="block px-3 py-2 rounded-lg text-sm font-medium text-foreground/70 hover:text-primary hover:bg-muted/50 transition-all"
-                        >
-                          {subitem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {item.label === 'Products' && (
-                  <div className="absolute left-0 mt-0 w-56 bg-card border border-border rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-2">
-                    <div className="p-4 space-y-3">
-                      {productsMenu.map((subitem) => (
-                        <Link
-                          key={subitem.label}
-                          href={subitem.href}
-                          className="block px-3 py-2 rounded-lg text-sm font-medium text-foreground/70 hover:text-primary hover:bg-muted/50 transition-all"
-                        >
-                          {subitem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Right Side Actions */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <button
-              onClick={() => setIsSearchOpen(true)}
-              className="p-2 rounded-lg hover:bg-muted transition-colors text-foreground/70 hover:text-foreground"
-            >
-              <Search size={20} />
-            </button>
-            <Link
-              href="#"
-              className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:shadow-lg hover:shadow-primary/50 transition-all hover:scale-105"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-          >
-            {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileOpen && (
+        <div className="hidden lg:flex items-center gap-3">
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="rounded-full border border-white/10 bg-white/5 p-2.5 text-white/70 transition-all duration-300 hover:border-primary/30 hover:text-white"
+          >
+            <Search size={18} />
+          </button>
+          <Link
+            href="/contact"
+            className="rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_30px_rgba(95,140,255,0.25)] transition-all duration-300 hover:scale-[1.03]"
+          >
+            Book a demo
+          </Link>
+        </div>
+
+        <button
+          className="rounded-full border border-white/10 bg-white/5 p-2.5 text-white/80 lg:hidden"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isMobileOpen ? (
           <motion.div
-            className="lg:hidden pb-4 space-y-2"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-white/10 bg-slate-950/95 px-4 py-4 lg:hidden"
           >
             {navItems.map((item) => (
-              <div key={item.label}>
+              <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-2">
                 <button
-                  onClick={() =>
-                    setOpenSubmenu(
-                      openSubmenu === item.label ? null : item.label
-                    )
-                  }
-                  className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:bg-muted hover:text-primary transition-colors flex items-center justify-between"
+                  onClick={() => setOpenSubmenu(openSubmenu === item.label ? null : item.label)}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-medium text-white/80"
                 >
                   {item.label}
-                  {item.submenu && (
-                    <span className={`transition-transform ${openSubmenu === item.label ? 'rotate-180' : ''}`}>
-                      ▼
-                    </span>
-                  )}
+                  {item.submenu ? <span className={`transition-transform ${openSubmenu === item.label ? 'rotate-180' : ''}`}>▾</span> : null}
                 </button>
-
-                {item.submenu && openSubmenu === item.label && (
-                  <div className="pl-4 space-y-2 mt-2">
-                    {(item.label === 'Solutions'
-                      ? solutionsMenu
-                      : productsMenu
-                    ).map((subitem) => (
+                {item.submenu && openSubmenu === item.label ? (
+                  <div className="mt-2 space-y-1 pl-3">
+                    {(item.label === 'Solutions' ? solutionsMenu : productsMenu).map((subitem) => (
                       <Link
                         key={subitem.label}
                         href={subitem.href}
-                        className="block px-3 py-2 rounded-lg text-xs font-medium text-foreground/60 hover:text-primary hover:bg-muted/50 transition-all"
+                        className="block rounded-lg px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white"
                         onClick={() => setIsMobileOpen(false)}
                       >
                         {subitem.label}
                       </Link>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             ))}
           </motion.div>
-        )}
-      </div>
+        ) : null}
+      </AnimatePresence>
     </motion.nav>
     {isSearchOpen && <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />}
     </>
